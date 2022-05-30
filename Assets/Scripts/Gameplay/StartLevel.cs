@@ -21,25 +21,28 @@ public class StartLevel : Simulation.Event<PlayerSpawn>
             model.healthSystem.InitializeHealth();
             basemodel.HealthSystem.InitializeHealth();
 
+            model.WeaponEnergy = 0;
+
             shopmodel.DamageLevel = 1;
             shopmodel.ShotSpeedLevel = 1;
             shopmodel.PlayerMoney = 50;
 
-            AddLevelBoni();
 
             levelmodel.actualLevelScore = 0;
             levelmodel.ActualLevel = 1;
             levelmodel.WaveIndex = 0;
+
+            AddStartValues();
             return;
         }
 
-        AddLevelBoni();
+        AddStartValues();
 
         levelmodel.ActualLevel++;
         levelmodel.WaveIndex = 0;
     }
 
-    void AddLevelBoni()
+    void AddStartValues()
     {
         var energy = Simulation.Schedule<CollectEnergy>();
         energy.EnergyToCollect = levelmodel.startEnergy * levelmodel.ActualLevel;

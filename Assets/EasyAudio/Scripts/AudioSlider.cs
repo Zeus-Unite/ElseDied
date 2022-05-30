@@ -6,7 +6,6 @@ namespace StusseGames.Audio
 {
     public class AudioSlider : MonoBehaviour
     {
-
         void Awake()
         {
             //We get the References to the Title and Slider to change them based on Incoming Values
@@ -16,6 +15,7 @@ namespace StusseGames.Audio
 
         TextMeshProUGUI mixerTitle;
         Slider mixerSlider;
+
         float s_volume;
         string volumeSave;
 

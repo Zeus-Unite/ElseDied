@@ -991,14 +991,14 @@ MonoBehaviour:
     Experience: 50
     NPCType: 0
     HealthSystem:
-      Health: 4
+      Health: 10
       actualHealth: 0
       maximumHealth: 0
     BodyExplosionPrefab: {fileID: 3547501108393716038, guid: a920dc55a2359c045a6b20ea3b019645,
       type: 3}
     ExplosionPrefab: {fileID: 118080320058182490, guid: d112bfaef8afb2f419fdb622c7003f02,
       type: 3}
-    GrantMoney: 25
+    GrantMoney: 20
     UnitSpeed: 5
     UnitDamage: 0
     DamageType: 0

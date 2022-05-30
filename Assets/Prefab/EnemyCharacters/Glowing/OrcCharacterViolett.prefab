@@ -953,7 +953,7 @@ MonoBehaviour:
     Experience: 75
     NPCType: 0
     HealthSystem:
-      Health: 6
+      Health: 14
       actualHealth: 0
       maximumHealth: 0
     BodyExplosionPrefab: {fileID: 3547501108393716038, guid: dd7e82be836d1d44c808b9c74ae254ac,

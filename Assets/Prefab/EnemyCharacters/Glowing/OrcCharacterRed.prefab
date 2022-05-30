@@ -1175,14 +1175,14 @@ MonoBehaviour:
     Experience: 100
     NPCType: 0
     HealthSystem:
-      Health: 3
+      Health: 18
       actualHealth: 0
       maximumHealth: 0
     BodyExplosionPrefab: {fileID: 3547501108393716038, guid: a52341b97c35c2e4293ba20e34a2c486,
       type: 3}
     ExplosionPrefab: {fileID: 118080320058182490, guid: d112bfaef8afb2f419fdb622c7003f02,
       type: 3}
-    GrantMoney: 25
+    GrantMoney: 30
     UnitSpeed: 6
     UnitDamage: 0
     DamageType: 0

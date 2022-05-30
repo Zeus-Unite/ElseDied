@@ -835,7 +835,7 @@ MonoBehaviour:
       type: 3}
     ExplosionPrefab: {fileID: 118080320058182490, guid: d112bfaef8afb2f419fdb622c7003f02,
       type: 3}
-    GrantMoney: 25
+    GrantMoney: 15
     UnitSpeed: 3.2
     UnitDamage: 0
     DamageType: 0

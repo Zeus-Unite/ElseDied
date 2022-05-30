@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour, IHealth
     Vector3 playerVelocity;
     Vector3 move;
     bool walkRight;
+    bool canDash = true;
 
     void Update()
     {
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
         bool facingLeft = move.x < 0 ? true : false;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && move.x != 0 && !IsDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && move.x != 0 && canDash)
         {
             StartCoroutine("DirectionDash", facingLeft);
         }
@@ -101,12 +102,12 @@ public class PlayerController : MonoBehaviour, IHealth
 
     IEnumerator DirectionDash(bool left)
     {
-
         float startTime = Time.time;
         Vector3 playerVel = left == true ? Vector3.left: Vector3.right;
-
+        canDash = false;
         IsDashing = true;
         playerModel.dashSound.Play(this.transform.position);
+        playerModel.DashFillImage.fillAmount = 0;
 
         while (Time.time < startTime + playerModel.dashTime)
         {
@@ -117,7 +118,27 @@ public class PlayerController : MonoBehaviour, IHealth
 
         yield return new WaitForSeconds(playerModel.dashTime / 2);
 
+
         IsDashing = false;
+
+        //Cooldown, Very Clear, Break the Loop if the Objective is reached
+        float cooldown = 0;
+
+        while (!canDash)
+        {
+            cooldown += Time.deltaTime;
+
+            if(cooldown > 2)
+            {
+                playerModel.DashFillImage.fillAmount = 1;
+                canDash = true;
+                yield return null;
+                break;
+            }
+
+            playerModel.DashFillImage.fillAmount = cooldown / 2;
+            yield return null;
+        }
     }
 
     void FixedUpdate()
@@ -162,6 +183,8 @@ public class PlayerController : MonoBehaviour, IHealth
         if (playerModel.healthSystem.actualHealth <= 0)
         {
             //Unit Death
+            canDash = true;
+            StopAllCoroutines();
             Simulation.Schedule<EndLevel>();
             return;
         }
