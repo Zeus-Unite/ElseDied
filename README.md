@@ -1,5 +1,7 @@
 # ElseDied
 
+![image](https://user-images.githubusercontent.com/106550047/171065358-462e5be8-954a-458b-bf71-4e68b011f133.png)
+
 ## Game Description
 Else Died is a repetitive platform shooter. Enemies spawn in waves and try to get to the end point. Prevent them from doing so by shooting at them or running through them. Keep your energy for shooting, collect money and upgrade your weapon and achieve higher scores!
 
