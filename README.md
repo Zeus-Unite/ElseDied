@@ -23,4 +23,6 @@ from https://game-icons.net/
 An ever growing collection of free game icons
 
 ## Others
-Various small Audio CLips which we can't remember were they are from. They are not Included inside the Git and have to replaced, they are not necessary to run the Project.
+Various small Audio CLips which can't remember were they are from. They are not Included inside the Git and have to replaced, they are not necessary to run the Project.
+
+
