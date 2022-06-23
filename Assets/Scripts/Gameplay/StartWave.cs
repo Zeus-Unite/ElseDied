@@ -6,7 +6,8 @@ public class StartWave : Simulation.Event<StartWave>
     {
         if (levelmodel.WaveIndex >= levelmodel.Waves.Count)
         {
-            Simulation.Schedule<EndLevel>();
+            var sim = Simulation.Schedule<EndLevel>();
+            sim.forcedEnd = false;
             return;
         }
 

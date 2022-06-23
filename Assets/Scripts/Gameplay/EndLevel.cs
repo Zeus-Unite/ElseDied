@@ -3,7 +3,7 @@ public class EndLevel : Simulation.Event<EndLevel>
     readonly PlayerModel model = Simulation.GetModel<PlayerModel>();
     readonly BaseModel basemodel = Simulation.GetModel<BaseModel>();
 
-    bool forcedEnd = false;
+    public bool forcedEnd = false;
 
     public override void Execute()
     {

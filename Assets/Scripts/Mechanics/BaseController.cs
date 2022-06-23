@@ -14,7 +14,8 @@ public class BaseController : MonoBehaviour, IHealth
         if (basemodel.HealthSystem.actualHealth <= 0)
         {
             //Unit Death
-            Simulation.Schedule<EndLevel>();
+            var sim = Simulation.Schedule<EndLevel>();
+            sim.forcedEnd = false;
             return;
         }
     }

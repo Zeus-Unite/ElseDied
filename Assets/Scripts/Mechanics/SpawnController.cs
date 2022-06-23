@@ -98,14 +98,14 @@ public class SpawnController : MonoBehaviour
             yield return fixedWait;
         }
 
-        RemainingEnemies(instantiatedEnemeies.Count);
+        RemainingEnemies(0);
         Simulation.Schedule<EndWave>();
         yield return null;
     }
 
     public void ClearPlayField()
     {
-        StopCoroutine("HandleWave");
+        StopAllCoroutines();
 
         for (int i = 0; i < instantiatedEnemeies.Count; i++)
         {

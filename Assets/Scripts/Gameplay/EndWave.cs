@@ -6,7 +6,9 @@ public class EndWave : Simulation.Event<EndWave>
     {
         if (levelmdel.WaveIndex >= levelmdel.Waves.Count)
         {
-            Simulation.Schedule<EndLevel>();
+            var sim = Simulation.Schedule<EndLevel>();
+            sim.forcedEnd = false;
+
             return;
         }
 

@@ -151,7 +151,8 @@ public class PlayerController : MonoBehaviour, IHealth
         {
             //Unit Death
             StopAllCoroutines();
-            Simulation.Schedule<EndLevel>();
+            var sim = Simulation.Schedule<EndLevel>();
+            sim.forcedEnd = false;
             return;
         }
 

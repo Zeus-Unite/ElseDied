@@ -36,7 +36,8 @@ public class MainUIController : MonoBehaviour
 
     public void CallEndGameByButton()
     {
-        Simulation.Schedule<EndLevel>();
+        var sim = Simulation.Schedule<EndLevel>();
+        sim.forcedEnd = true;
     }
 
     public void EndGame(bool playerAlive)
@@ -85,6 +86,15 @@ public class MainUIController : MonoBehaviour
         UIPanel.SetActive(true);
         InfoPanel.SetActive(true);
         EndGamePanel.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_WEBGL
+        Screen.fullScreen = false;
+#endif
+
+        Application.Quit();
     }
 
 }
