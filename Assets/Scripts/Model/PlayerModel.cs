@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerModel
 {
     public Transform PlayerObject;
-    public UnityEngine.UI.Image DashFillImage;
     public PlayerController playerController;
     public HealthModel healthSystem;
     public Transform spawnPoint;

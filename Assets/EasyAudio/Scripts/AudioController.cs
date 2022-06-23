@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -44,9 +43,6 @@ namespace StusseGames.Audio
         [Tooltip("Please Enter the Main Group of your Audio Mixer here, Default Master")]
         [SerializeField] string MasterGroup = "Master";
 
-        [Header("Game Handle")]
-        [Tooltip("Turn On to change the TimeScale based on Active Setting Panel to 1 for Pause not Active or 0 for Pause Active")]
-        [SerializeField] bool CanPauseGame = false;
 
         [Header("Open Audio Key")]
         [SerializeField] KeyCode openAudioKey = KeyCode.None;
@@ -56,8 +52,6 @@ namespace StusseGames.Audio
         [SerializeField] AudioSlider audioSliderPrefab = null;
         [SerializeField] Button closeAudioSettingsButtonPrefab = null;
 
-        //[Header("Debug Mode")]
-        //[SerializeField] bool DebugController = false;
 
         Button closeAudioSettingsButton = null;
         Transform audioSettingsPanel = null;
@@ -92,32 +86,9 @@ namespace StusseGames.Audio
         #region SceneLoad Setup
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            //if(DebugController)
-            //    Debug.Log("On Scene Load Audio Controller and Setup the Audio Settings Panel");
-
-            if (AudioMixer == null)
-            {
-                //Create AudioMixer
-                //Future Update
-            }
-
-            //if (DebugController)
-            //    Debug.Log("Create Settings Panel");
-
             SetupSettingsPanel();
-
-            //if (DebugController)
-            //    Debug.Log("Create Audio Settings Menu from Audio Mixer Entires");
-
             SetupSlider();
-
-            //if (DebugController)
-            //    Debug.Log("Create Audio Panel Close Button");
-
             SetupCloseButton();
-
-            //if (DebugController)
-            //    Debug.Log("Deactivate Audio Panel");
 
             Invoke("SetActiveAudioController", .01f);
         }

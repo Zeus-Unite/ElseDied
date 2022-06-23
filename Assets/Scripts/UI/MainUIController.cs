@@ -34,6 +34,11 @@ public class MainUIController : MonoBehaviour
     }
 
 
+    public void CallEndGameByButton()
+    {
+        Simulation.Schedule<EndLevel>();
+    }
+
     public void EndGame(bool playerAlive)
     {
         UIPanel.SetActive(false);

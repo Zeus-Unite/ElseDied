@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IHealth
@@ -27,8 +26,6 @@ public class PlayerController : MonoBehaviour, IHealth
     CharacterController controller;
     Vector3 playerVelocity;
     Vector3 move;
-    bool walkRight;
-    bool canDash = true;
 
     void Update()
     {
@@ -48,7 +45,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
         bool facingLeft = move.x < 0 ? true : false;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && move.x != 0 && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && move.x != 0 && !IsDashing)
         {
             StartCoroutine("DirectionDash", facingLeft);
         }
@@ -70,44 +67,34 @@ public class PlayerController : MonoBehaviour, IHealth
 
     void CheckLookDirection()
     {
-        if (move.x > 0)
+        if (RightHalf())
         {
-            if (!playerModel.lastLookRight && !walkRight)
-            {
-                walkRight = true;
-                transform.Rotate(0, -180, 0, Space.World);
-            }
-
-            playerModel.lastLookRight = true;
-            return;
+                transform.eulerAngles = new Vector3(0,90,0);
+                playerModel.lastLookRight = true;
         }
-
-        if (playerModel.lastLookRight && walkRight)
+        else if (LeftHalf())
         {
-            walkRight = false;
-            transform.Rotate(0, 180, 0, Space.World);
+                transform.eulerAngles = new Vector3(0,-90,0);
+                playerModel.lastLookRight = false;
         }
+    }
 
-        if (move.x < 0)        
-            playerModel.lastLookRight = false;
+    bool RightHalf()
+    {
+        return Input.mousePosition.x > Screen.width / 2.0f;
+    }
 
-        //This feels a bit weird, that is one of the moments u usually want to use a else if statement, which kinda makes sense.
-        //The following Code is 
-        //  if (move.x > 0)
-        //      playerModel.lastLookRight = true;
-        //  else if (move.x < 0)
-        //      playerModel.lastLookRight = false;
-        // I would use this Version aswell, but this Project is completly focused about no else!
+    bool LeftHalf()
+    {
+        return Input.mousePosition.x < Screen.width / 2.0f;
     }
 
     IEnumerator DirectionDash(bool left)
     {
         float startTime = Time.time;
         Vector3 playerVel = left == true ? Vector3.left: Vector3.right;
-        canDash = false;
         IsDashing = true;
         playerModel.dashSound.Play(this.transform.position);
-        playerModel.DashFillImage.fillAmount = 0;
 
         while (Time.time < startTime + playerModel.dashTime)
         {
@@ -118,27 +105,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
         yield return new WaitForSeconds(playerModel.dashTime / 2);
 
-
         IsDashing = false;
-
-        //Cooldown, Very Clear, Break the Loop if the Objective is reached
-        float cooldown = 0;
-
-        while (!canDash)
-        {
-            cooldown += Time.deltaTime;
-
-            if(cooldown > 2)
-            {
-                playerModel.DashFillImage.fillAmount = 1;
-                canDash = true;
-                yield return null;
-                break;
-            }
-
-            playerModel.DashFillImage.fillAmount = cooldown / 2;
-            yield return null;
-        }
     }
 
     void FixedUpdate()
@@ -183,7 +150,6 @@ public class PlayerController : MonoBehaviour, IHealth
         if (playerModel.healthSystem.actualHealth <= 0)
         {
             //Unit Death
-            canDash = true;
             StopAllCoroutines();
             Simulation.Schedule<EndLevel>();
             return;
@@ -210,19 +176,6 @@ public class PlayerController : MonoBehaviour, IHealth
 
         playerModel.dieSound.Play(this.transform.position);
         HandleHealth(-1);
-    }
-
-    void RotatePlayerAround()
-    {
-        if (transform.rotation.y < 0)
-        {
-            walkRight = true;
-            transform.Rotate(0, 180, 0, Space.World);
-            return;
-        }
-
-        walkRight = false;
-        transform.Rotate(0, -180, 0, Space.World);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
